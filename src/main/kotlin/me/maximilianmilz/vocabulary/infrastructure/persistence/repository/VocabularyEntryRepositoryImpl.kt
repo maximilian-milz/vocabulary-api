@@ -31,6 +31,22 @@ class VocabularyEntryRepositoryImpl(
         return jpaRepository.findByNextReviewBefore(date).map { it.toDomain() }
     }
 
+    override fun findByWordPt(wordPt: String): List<VocabularyEntry> {
+        return jpaRepository.findByWordPtContainingIgnoreCase(wordPt).map { it.toDomain() }
+    }
+
+    override fun findByWordDe(wordDe: String): List<VocabularyEntry> {
+        return jpaRepository.findByWordDeContainingIgnoreCase(wordDe).map { it.toDomain() }
+    }
+
+    override fun findByExample(example: String): List<VocabularyEntry> {
+        return jpaRepository.findByExampleContainingIgnoreCase(example).map { it.toDomain() }
+    }
+
+    override fun findByWord(word: String): List<VocabularyEntry> {
+        return jpaRepository.findByWordPtOrWordDe(word).map { it.toDomain() }
+    }
+
     override fun save(vocabularyEntry: VocabularyEntry): VocabularyEntry {
         val entity = vocabularyEntry.toEntity()
         return jpaRepository.save(entity).toDomain()
@@ -52,7 +68,13 @@ class VocabularyEntryRepositoryImpl(
             level = this.level,
             nextReview = this.nextReview,
             category = this.category,
-            createdAt = this.createdAt
+            createdAt = this.createdAt,
+            notes = this.notes,
+            pronunciation = this.pronunciation,
+            tags = this.tags,
+            repetitions = this.repetitions,
+            easeFactor = this.easeFactor,
+            lastReviewDate = this.lastReviewDate
         )
     }
 
@@ -68,7 +90,13 @@ class VocabularyEntryRepositoryImpl(
             level = this.level,
             nextReview = this.nextReview,
             category = this.category,
-            createdAt = this.createdAt
+            createdAt = this.createdAt,
+            notes = this.notes,
+            pronunciation = this.pronunciation,
+            tags = this.tags,
+            repetitions = this.repetitions,
+            easeFactor = this.easeFactor,
+            lastReviewDate = this.lastReviewDate
         )
     }
 }

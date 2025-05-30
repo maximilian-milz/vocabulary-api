@@ -1,0 +1,42 @@
+###############################################################################
+# Vocabulary Entry Search Controller Tests
+# This file contains HTTP requests to test search operations
+###############################################################################
+
+### Variables
+@baseUrl = http://localhost:8080
+@contentType = application/json
+
+###############################################################################
+# Search Operations (VocabularyEntrySearchController)
+###############################################################################
+
+### Search vocabulary entries by Portuguese word
+# Returns vocabulary entries that match the Portuguese word search query
+GET {{baseUrl}}/api/vocabulary-entries/search/word-pt?query=falar
+Accept: {{contentType}}
+
+### Search vocabulary entries by German word
+# Returns vocabulary entries that match the German word search query
+GET {{baseUrl}}/api/vocabulary-entries/search/word-de?query=sprechen
+Accept: {{contentType}}
+
+### Search vocabulary entries by example text
+# Returns vocabulary entries that match the example text search query
+GET {{baseUrl}}/api/vocabulary-entries/search/example?query=português
+Accept: {{contentType}}
+
+### Search vocabulary entries by word in either Portuguese or German
+# Returns vocabulary entries that match the word search query in either Portuguese or German
+GET {{baseUrl}}/api/vocabulary-entries/search/word?query=casa
+Accept: {{contentType}}
+
+### Get vocabulary entries by category
+# Returns vocabulary entries filtered by category
+GET {{baseUrl}}/api/vocabulary-entries/search/category/VERBS
+Accept: {{contentType}}
+
+### Get vocabulary entries due for review
+# Returns vocabulary entries that are due for review
+GET {{baseUrl}}/api/vocabulary-entries/search/due
+Accept: {{contentType}}

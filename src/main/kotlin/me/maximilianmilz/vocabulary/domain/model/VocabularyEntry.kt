@@ -16,6 +16,11 @@ data class VocabularyEntry(
     val category: Category,
     val createdAt: LocalDateTime,
 
+    // Additional metadata fields
+    val notes: String? = null,            // Additional notes about the word
+    val pronunciation: String? = null,    // Pronunciation guide
+    val tags: List<String>? = null,       // Tags for additional categorization
+
     // Fields for spaced repetition algorithm
     val repetitions: Int? = null,         // Number of successful reviews
     val easeFactor: Double? = null,       // Ease factor for SM-2 algorithm

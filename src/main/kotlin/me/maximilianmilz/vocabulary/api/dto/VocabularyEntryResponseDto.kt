@@ -17,6 +17,11 @@ data class VocabularyEntryResponseDto(
     val category: Category,
     val createdAt: LocalDateTime,
 
+    // Additional metadata fields
+    val notes: String? = null,
+    val pronunciation: String? = null,
+    val tags: List<String>? = null,
+
     // Fields for spaced repetition algorithm
     val repetitions: Int? = null,
     val easeFactor: Double? = null,

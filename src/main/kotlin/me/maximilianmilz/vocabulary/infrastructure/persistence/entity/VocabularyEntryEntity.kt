@@ -37,6 +37,18 @@ class VocabularyEntryEntity(
     @Column(name = "created_at", nullable = false)
     val createdAt: LocalDateTime,
 
+    // Additional metadata fields
+    @Column(nullable = true)
+    val notes: String? = null,
+
+    @Column(nullable = true)
+    val pronunciation: String? = null,
+
+    @Column(nullable = true)
+    @ElementCollection
+    @CollectionTable(name = "vocabulary_entry_tags", joinColumns = [JoinColumn(name = "vocabulary_entry_id")])
+    val tags: List<String>? = null,
+
     // Fields for spaced repetition algorithm
     @Column(nullable = true)
     val repetitions: Int? = null,

@@ -29,6 +29,26 @@ interface VocabularyEntryRepository {
     fun findByNextReviewBefore(date: LocalDate): List<VocabularyEntry>
 
     /**
+     * Find vocabulary entries by Portuguese word (case-insensitive, partial match).
+     */
+    fun findByWordPt(wordPt: String): List<VocabularyEntry>
+
+    /**
+     * Find vocabulary entries by German word (case-insensitive, partial match).
+     */
+    fun findByWordDe(wordDe: String): List<VocabularyEntry>
+
+    /**
+     * Find vocabulary entries by example text (case-insensitive, partial match).
+     */
+    fun findByExample(example: String): List<VocabularyEntry>
+
+    /**
+     * Find vocabulary entries by word in either Portuguese or German (case-insensitive, partial match).
+     */
+    fun findByWord(word: String): List<VocabularyEntry>
+
+    /**
      * Save a vocabulary entry.
      */
     fun save(vocabularyEntry: VocabularyEntry): VocabularyEntry

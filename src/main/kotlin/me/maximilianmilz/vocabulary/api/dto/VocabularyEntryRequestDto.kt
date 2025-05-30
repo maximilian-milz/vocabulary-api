@@ -29,5 +29,10 @@ data class VocabularyEntryRequestDto(
 
     @field:NotNull(message = "Category is required")
     @Schema(enumAsRef = true)
-    val category: Category
+    val category: Category,
+
+    // Additional metadata fields (optional)
+    val notes: String? = null,
+    val pronunciation: String? = null,
+    val tags: List<String>? = null
 )

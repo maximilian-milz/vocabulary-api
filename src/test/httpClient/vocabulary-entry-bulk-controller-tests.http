@@ -1,0 +1,110 @@
+###############################################################################
+# Vocabulary Entry Bulk Controller Tests
+# This file contains HTTP requests to test bulk operations
+###############################################################################
+
+### Variables
+@baseUrl = http://localhost:8080
+@contentType = application/json
+
+###############################################################################
+# Bulk Operations (VocabularyEntryBulkController)
+###############################################################################
+
+### Bulk create vocabulary entries
+# Creates multiple vocabulary entries in a single request
+POST {{baseUrl}}/api/vocabulary-entries/bulk/create
+Content-Type: {{contentType}}
+
+{
+  "entries": [
+    {
+      "wordPt": "comer",
+      "wordDe": "essen",
+      "example": "Eu como frutas.",
+      "level": 1,
+      "nextReview": "2023-06-05",
+      "category": "VERBS"
+    },
+    {
+      "wordPt": "beber",
+      "wordDe": "trinken",
+      "example": "Eu bebo água.",
+      "level": 1,
+      "nextReview": "2023-06-06",
+      "category": "VERBS"
+    }
+  ]
+}
+
+### Bulk update vocabulary entries
+# Updates multiple vocabulary entries in a single request
+# Replace IDs with actual IDs
+POST {{baseUrl}}/api/vocabulary-entries/bulk/update
+Content-Type: {{contentType}}
+
+{
+  "entries": [
+    {
+      "id": 1,
+      "entry": {
+        "wordPt": "comer",
+        "wordDe": "essen",
+        "example": "Eu como frutas todos os dias.",
+        "level": 2,
+        "nextReview": "2023-07-05",
+        "category": "VERBS"
+      }
+    },
+    {
+      "id": 2,
+      "entry": {
+        "wordPt": "beber",
+        "wordDe": "trinken",
+        "example": "Eu bebo água todos os dias.",
+        "level": 2,
+        "nextReview": "2023-07-06",
+        "category": "VERBS"
+      }
+    }
+  ]
+}
+
+### Bulk delete vocabulary entries
+# Deletes multiple vocabulary entries in a single request
+# Replace IDs with actual IDs
+DELETE {{baseUrl}}/api/vocabulary-entries/bulk/delete
+Content-Type: {{contentType}}
+
+{
+  "ids": [1, 2]
+}
+
+### Export vocabulary entries
+# Exports all vocabulary entries as JSON
+GET {{baseUrl}}/api/vocabulary-entries/bulk/export
+Accept: {{contentType}}
+
+### Import vocabulary entries
+# Imports vocabulary entries from JSON
+POST {{baseUrl}}/api/vocabulary-entries/bulk/import
+Content-Type: {{contentType}}
+
+[
+  {
+    "wordPt": "dormir",
+    "wordDe": "schlafen",
+    "example": "Eu durmo bem.",
+    "level": 1,
+    "nextReview": "2023-06-07",
+    "category": "VERBS"
+  },
+  {
+    "wordPt": "correr",
+    "wordDe": "laufen",
+    "example": "Eu corro todos os dias.",
+    "level": 1,
+    "nextReview": "2023-06-08",
+    "category": "VERBS"
+  }
+]

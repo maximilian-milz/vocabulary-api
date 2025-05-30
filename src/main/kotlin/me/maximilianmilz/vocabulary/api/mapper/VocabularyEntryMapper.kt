@@ -26,6 +26,9 @@ class VocabularyEntryMapper {
             nextReview = vocabularyEntry.nextReview,
             category = vocabularyEntry.category,
             createdAt = vocabularyEntry.createdAt,
+            notes = vocabularyEntry.notes,
+            pronunciation = vocabularyEntry.pronunciation,
+            tags = vocabularyEntry.tags,
             repetitions = vocabularyEntry.repetitions,
             easeFactor = vocabularyEntry.easeFactor,
             lastReviewDate = vocabularyEntry.lastReviewDate
@@ -51,7 +54,10 @@ class VocabularyEntryMapper {
             level = requestDto.level,
             nextReview = requestDto.nextReview,
             category = requestDto.category,
-            createdAt = LocalDateTime.now()
+            createdAt = LocalDateTime.now(),
+            notes = requestDto.notes,
+            pronunciation = requestDto.pronunciation,
+            tags = requestDto.tags
         )
     }
 
@@ -67,7 +73,10 @@ class VocabularyEntryMapper {
             level = requestDto.level,
             nextReview = requestDto.nextReview,
             category = requestDto.category,
-            createdAt = createdAt
+            createdAt = createdAt,
+            notes = requestDto.notes,
+            pronunciation = requestDto.pronunciation,
+            tags = requestDto.tags
         )
     }
 }

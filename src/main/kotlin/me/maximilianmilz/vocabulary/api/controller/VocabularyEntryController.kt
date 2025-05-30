@@ -9,22 +9,18 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
-import me.maximilianmilz.vocabulary.api.dto.ReviewResultDto
-import me.maximilianmilz.vocabulary.api.dto.VocabularyEntryRequestDto
-import me.maximilianmilz.vocabulary.api.dto.VocabularyEntryResponseDto
+import me.maximilianmilz.vocabulary.api.dto.*
 import me.maximilianmilz.vocabulary.api.exception.ErrorResponse
 import me.maximilianmilz.vocabulary.api.exception.ResourceNotFoundException
 import me.maximilianmilz.vocabulary.api.mapper.VocabularyEntryMapper
 import me.maximilianmilz.vocabulary.application.service.SpacedRepetitionService
-import me.maximilianmilz.vocabulary.domain.model.Category
 import me.maximilianmilz.vocabulary.domain.repository.VocabularyEntryRepository
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.time.LocalDate
 
 /**
- * REST controller for vocabulary entries.
+ * REST controller for basic CRUD operations on vocabulary entries.
  */
 @RestController
 @RequestMapping("/api/vocabulary-entries")
@@ -69,41 +65,6 @@ class VocabularyEntryController(
             ?: throw ResourceNotFoundException("Vocabulary entry not found with id: $id")
 
         return ResponseEntity.ok(mapper.toResponseDto(entry))
-    }
-
-    @GetMapping("/category/{category}")
-    @Operation(
-        summary = "Get vocabulary entries by category",
-        description = "Returns vocabulary entries filtered by category"
-    )
-    @ApiResponses(
-        ApiResponse(
-            responseCode = "200", description = "Successfully retrieved entries by category",
-            content = [Content(array = ArraySchema(schema = Schema(implementation = VocabularyEntryResponseDto::class)))]
-        )
-    )
-    fun getEntriesByCategory(
-        @Parameter(description = "Category to filter by", required = true)
-        @PathVariable category: Category
-    ): ResponseEntity<List<VocabularyEntryResponseDto>> {
-        val entries = repository.findByCategory(category)
-        return ResponseEntity.ok(mapper.toResponseDtoList(entries))
-    }
-
-    @GetMapping("/due")
-    @Operation(
-        summary = "Get vocabulary entries due for review",
-        description = "Returns vocabulary entries that are due for review"
-    )
-    @ApiResponses(
-        ApiResponse(
-            responseCode = "200", description = "Successfully retrieved entries due for review",
-            content = [Content(array = ArraySchema(schema = Schema(implementation = VocabularyEntryResponseDto::class)))]
-        )
-    )
-    fun getEntriesDueForReview(): ResponseEntity<List<VocabularyEntryResponseDto>> {
-        val entries = repository.findByNextReviewBefore(LocalDate.now())
-        return ResponseEntity.ok(mapper.toResponseDtoList(entries))
     }
 
     @PostMapping
