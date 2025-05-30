@@ -1,16 +1,7 @@
 package me.maximilianmilz.vocabulary.api.controller
 
-import io.swagger.v3.oas.annotations.Operation
-import io.swagger.v3.oas.annotations.Parameter
-import io.swagger.v3.oas.annotations.media.ArraySchema
-import io.swagger.v3.oas.annotations.media.Content
-import io.swagger.v3.oas.annotations.media.Schema
-import io.swagger.v3.oas.annotations.responses.ApiResponse
-import io.swagger.v3.oas.annotations.responses.ApiResponses
-import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.Valid
 import me.maximilianmilz.vocabulary.api.dto.*
-import me.maximilianmilz.vocabulary.api.exception.ErrorResponse
 import me.maximilianmilz.vocabulary.api.exception.ResourceNotFoundException
 import me.maximilianmilz.vocabulary.api.mapper.VocabularyEntryMapper
 import me.maximilianmilz.vocabulary.application.service.SpacedRepetitionService
@@ -24,7 +15,6 @@ import org.springframework.web.bind.annotation.*
  */
 @RestController
 @RequestMapping("/api/vocabulary-entries")
-@Tag(name = "Vocabulary Entries", description = "API for managing vocabulary entries")
 class VocabularyEntryController(
     private val repository: VocabularyEntryRepository,
     private val mapper: VocabularyEntryMapper,
@@ -32,33 +22,13 @@ class VocabularyEntryController(
 ) {
 
     @GetMapping
-    @Operation(summary = "Get all vocabulary entries", description = "Returns a list of all vocabulary entries")
-    @ApiResponses(
-        ApiResponse(
-            responseCode = "200", description = "Successfully retrieved all entries",
-            content = [Content(array = ArraySchema(schema = Schema(implementation = VocabularyEntryResponseDto::class)))]
-        )
-    )
     fun getAllEntries(): ResponseEntity<List<VocabularyEntryResponseDto>> {
         val entries = repository.findAll()
         return ResponseEntity.ok(mapper.toResponseDtoList(entries))
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Get a vocabulary entry by ID", description = "Returns a vocabulary entry by its ID")
-    @ApiResponses(
-        ApiResponse(
-            responseCode = "200", description = "Successfully retrieved the entry",
-            content = [Content(schema = Schema(implementation = VocabularyEntryResponseDto::class))]
-        ),
-        ApiResponse(
-            responseCode = "404",
-            description = "Entry not found",
-            content = [Content(schema = Schema(implementation = ErrorResponse::class))]
-        )
-    )
     fun getEntryById(
-        @Parameter(description = "ID of the vocabulary entry", required = true)
         @PathVariable id: Long
     ): ResponseEntity<VocabularyEntryResponseDto> {
         val entry = repository.findById(id)
@@ -69,20 +39,7 @@ class VocabularyEntryController(
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @Operation(summary = "Create a new vocabulary entry", description = "Creates a new vocabulary entry")
-    @ApiResponses(
-        ApiResponse(
-            responseCode = "201", description = "Successfully created the entry",
-            content = [Content(schema = Schema(implementation = VocabularyEntryResponseDto::class))]
-        ),
-        ApiResponse(
-            responseCode = "400",
-            description = "Invalid input",
-            content = [Content(schema = Schema(implementation = ErrorResponse::class))]
-        )
-    )
     fun createEntry(
-        @Parameter(description = "Vocabulary entry to create", required = true)
         @Valid @RequestBody requestDto: VocabularyEntryRequestDto
     ): ResponseEntity<VocabularyEntryResponseDto> {
         val domainModel = mapper.toDomainModel(requestDto)
@@ -92,28 +49,8 @@ class VocabularyEntryController(
     }
 
     @PutMapping("/{id}")
-    @Operation(summary = "Update a vocabulary entry", description = "Updates an existing vocabulary entry")
-    @ApiResponses(
-        ApiResponse(
-            responseCode = "200", description = "Successfully updated the entry",
-            content = [Content(schema = Schema(implementation = VocabularyEntryResponseDto::class))]
-        ),
-        ApiResponse(
-            responseCode = "400",
-            description = "Invalid input",
-            content = [Content(schema = Schema(implementation = ErrorResponse::class))]
-        ),
-        ApiResponse(
-            responseCode = "404",
-            description = "Entry not found",
-            content = [Content(schema = Schema(implementation = ErrorResponse::class))]
-        )
-    )
     fun updateEntry(
-        @Parameter(description = "ID of the vocabulary entry to update", required = true)
         @PathVariable id: Long,
-
-        @Parameter(description = "Updated vocabulary entry data", required = true)
         @Valid @RequestBody requestDto: VocabularyEntryRequestDto
     ): ResponseEntity<VocabularyEntryResponseDto> {
         val existingEntry = repository.findById(id)
@@ -127,17 +64,7 @@ class VocabularyEntryController(
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @Operation(summary = "Delete a vocabulary entry", description = "Deletes a vocabulary entry by its ID")
-    @ApiResponses(
-        ApiResponse(responseCode = "204", description = "Successfully deleted the entry"),
-        ApiResponse(
-            responseCode = "404",
-            description = "Entry not found",
-            content = [Content(schema = Schema(implementation = ErrorResponse::class))]
-        )
-    )
     fun deleteEntry(
-        @Parameter(description = "ID of the vocabulary entry to delete", required = true)
         @PathVariable id: Long
     ): ResponseEntity<Void> {
         if (repository.findById(id) == null) {
@@ -149,31 +76,8 @@ class VocabularyEntryController(
     }
 
     @PostMapping("/{id}/review")
-    @Operation(
-        summary = "Record a review result for a vocabulary entry",
-        description = "Records a review result and updates the next review date using the spaced repetition algorithm"
-    )
-    @ApiResponses(
-        ApiResponse(
-            responseCode = "200", description = "Successfully recorded the review result",
-            content = [Content(schema = Schema(implementation = VocabularyEntryResponseDto::class))]
-        ),
-        ApiResponse(
-            responseCode = "400",
-            description = "Invalid input",
-            content = [Content(schema = Schema(implementation = ErrorResponse::class))]
-        ),
-        ApiResponse(
-            responseCode = "404",
-            description = "Entry not found",
-            content = [Content(schema = Schema(implementation = ErrorResponse::class))]
-        )
-    )
     fun recordReviewResult(
-        @Parameter(description = "ID of the vocabulary entry being reviewed", required = true)
         @PathVariable id: Long,
-
-        @Parameter(description = "Review result data", required = true)
         @Valid @RequestBody reviewResultDto: ReviewResultDto
     ): ResponseEntity<VocabularyEntryResponseDto> {
         // Find the vocabulary entry

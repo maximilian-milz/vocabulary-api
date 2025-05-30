@@ -75,9 +75,14 @@ springdoc:
   api-docs:
     path: /v3/api-docs
   swagger-ui:
-    path: /swagger-ui/index.html
+    path: /swagger-ui.html
     operationsSorter: method
     tagsSorter: alpha
     tryItOutEnabled: true
     filter: true
     use-root-path: true
+  model-converters:
+    pageable-converter:
+      enabled: true
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
