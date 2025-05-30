@@ -1,5 +1,6 @@
 package me.maximilianmilz.vocabulary.infrastructure.persistence.repository
 
+import me.maximilianmilz.vocabulary.domain.model.Category
 import me.maximilianmilz.vocabulary.infrastructure.persistence.entity.VocabularyEntryEntity
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
@@ -14,7 +15,7 @@ interface JpaVocabularyEntryRepository : JpaRepository<VocabularyEntryEntity, Lo
      * Find vocabulary entries by category.
      */
     fun findByCategory(category: String): List<VocabularyEntryEntity>
-    
+
     /**
      * Find vocabulary entries due for review.
      */

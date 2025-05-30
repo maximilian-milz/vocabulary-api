@@ -1,0 +1,143 @@
+###############################################################################
+# Vocabulary Entry API Tests
+# This file contains HTTP requests to test all endpoints in VocabularyEntryController
+###############################################################################
+
+### Variables
+@baseUrl = http://localhost:8080
+@contentType = application/json
+
+###############################################################################
+# GET Requests
+###############################################################################
+
+### Get all vocabulary entries
+# Returns a list of all vocabulary entries
+GET {{baseUrl}}/api/vocabulary-entries
+Accept: {{contentType}}
+
+### Get a vocabulary entry by ID
+# Returns a specific vocabulary entry by its ID
+# Replace '1' with an actual ID
+GET {{baseUrl}}/api/vocabulary-entries/1
+Accept: {{contentType}}
+
+### Get vocabulary entries by category
+# Returns vocabulary entries filtered by category
+# Examples of categories: verbs, nouns, adjectives, etc.
+GET {{baseUrl}}/api/vocabulary-entries/category/VERBS
+Accept: {{contentType}}
+
+# Try with a different category
+GET {{baseUrl}}/api/vocabulary-entries/category/VERBS
+Accept: {{contentType}}
+
+### Get vocabulary entries due for review
+# Returns vocabulary entries that are due for review (nextReview date is before or equal to today)
+GET {{baseUrl}}/api/vocabulary-entries/due
+Accept: {{contentType}}
+
+###############################################################################
+# POST Requests
+###############################################################################
+
+### Create a new vocabulary entry
+# Creates a new vocabulary entry with the provided data
+POST {{baseUrl}}/api/vocabulary-entries
+Content-Type: {{contentType}}
+
+{
+  "wordPt": "falar",
+  "wordDe": "sprechen",
+  "example": "Eu falo português.",
+  "level": 1,
+  "nextReview": "2023-06-01",
+  "category": "VERBS"
+}
+
+### Create another vocabulary entry (noun)
+POST {{baseUrl}}/api/vocabulary-entries
+Content-Type: {{contentType}}
+
+{
+  "wordPt": "casa",
+  "wordDe": "Haus",
+  "example": "Minha casa é grande.",
+  "level": 1,
+  "nextReview": "2023-06-02",
+  "category": "NOUNS"
+}
+
+### Create another vocabulary entry (adjective)
+POST {{baseUrl}}/api/vocabulary-entries
+Content-Type: {{contentType}}
+
+{
+  "wordPt": "bonito",
+  "wordDe": "schön",
+  "example": "O jardim é bonito.",
+  "level": 1,
+  "nextReview": "2023-06-03",
+  "category": "ADJECTIVES"
+}
+
+###############################################################################
+# PUT Requests
+###############################################################################
+
+### Update a vocabulary entry
+# Updates an existing vocabulary entry with the provided data
+# Replace '1' with an actual ID
+PUT {{baseUrl}}/api/vocabulary-entries/1
+Content-Type: {{contentType}}
+
+{
+  "wordPt": "falar",
+  "wordDe": "sprechen",
+  "example": "Eu falo português muito bem.",
+  "level": 2,
+  "nextReview": "2023-07-01",
+  "category": "VERBS"
+}
+
+###############################################################################
+# DELETE Requests
+###############################################################################
+
+### Delete a vocabulary entry
+# Deletes a vocabulary entry by its ID
+# Replace '1' with an actual ID
+DELETE {{baseUrl}}/api/vocabulary-entries/1
+
+###############################################################################
+# Review Requests
+###############################################################################
+
+### Record a review result for a vocabulary entry
+# Records a review result and updates the next review date using the spaced repetition algorithm
+# Quality rating must be between 0 and 5 (0 = complete blackout, 5 = perfect recall)
+# Replace '1' with an actual ID
+POST {{baseUrl}}/api/vocabulary-entries/1/review
+Content-Type: {{contentType}}
+
+{
+  "qualityRating": 4
+}
+
+### Record a different review result (lower quality)
+# Replace '2' with an actual ID
+POST {{baseUrl}}/api/vocabulary-entries/2/review
+Content-Type: {{contentType}}
+
+{
+  "qualityRating": 1
+}
+
+### Record a different review result (perfect recall)
+# Replace '3' with an actual ID
+POST {{baseUrl}}/api/vocabulary-entries/3/review
+Content-Type: {{contentType}}
+
+{
+  "qualityRating": 5
+}

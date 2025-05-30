@@ -2,6 +2,7 @@ package me.maximilianmilz.vocabulary.api.mapper
 
 import me.maximilianmilz.vocabulary.api.dto.VocabularyEntryRequestDto
 import me.maximilianmilz.vocabulary.api.dto.VocabularyEntryResponseDto
+import me.maximilianmilz.vocabulary.domain.model.Category
 import me.maximilianmilz.vocabulary.domain.model.VocabularyEntry
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
@@ -24,7 +25,10 @@ class VocabularyEntryMapper {
             level = vocabularyEntry.level,
             nextReview = vocabularyEntry.nextReview,
             category = vocabularyEntry.category,
-            createdAt = vocabularyEntry.createdAt
+            createdAt = vocabularyEntry.createdAt,
+            repetitions = vocabularyEntry.repetitions,
+            easeFactor = vocabularyEntry.easeFactor,
+            lastReviewDate = vocabularyEntry.lastReviewDate
         )
     }
 

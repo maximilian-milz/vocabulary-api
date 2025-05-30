@@ -1,5 +1,6 @@
 package me.maximilianmilz.vocabulary.api.dto
 
+import me.maximilianmilz.vocabulary.domain.model.Category
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -13,6 +14,11 @@ data class VocabularyEntryResponseDto(
     val example: String,
     val level: Int,
     val nextReview: LocalDate,
-    val category: String,
-    val createdAt: LocalDateTime
+    val category: Category,
+    val createdAt: LocalDateTime,
+
+    // Fields for spaced repetition algorithm
+    val repetitions: Int? = null,
+    val easeFactor: Double? = null,
+    val lastReviewDate: LocalDate? = null
 )

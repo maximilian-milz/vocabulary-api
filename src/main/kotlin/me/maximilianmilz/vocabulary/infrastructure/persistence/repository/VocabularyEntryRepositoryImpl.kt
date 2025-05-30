@@ -1,5 +1,6 @@
 package me.maximilianmilz.vocabulary.infrastructure.persistence.repository
 
+import me.maximilianmilz.vocabulary.domain.model.Category
 import me.maximilianmilz.vocabulary.domain.model.VocabularyEntry
 import me.maximilianmilz.vocabulary.domain.repository.VocabularyEntryRepository
 import me.maximilianmilz.vocabulary.infrastructure.persistence.entity.VocabularyEntryEntity
@@ -22,8 +23,8 @@ class VocabularyEntryRepositoryImpl(
         return jpaRepository.findAll().map { it.toDomain() }
     }
 
-    override fun findByCategory(category: String): List<VocabularyEntry> {
-        return jpaRepository.findByCategory(category).map { it.toDomain() }
+    override fun findByCategory(category: Category): List<VocabularyEntry> {
+        return jpaRepository.findByCategory(category.name).map { it.toDomain() }
     }
 
     override fun findByNextReviewBefore(date: LocalDate): List<VocabularyEntry> {

@@ -13,6 +13,11 @@ data class VocabularyEntry(
     val example: String,
     val level: Int,
     val nextReview: LocalDate,
-    val category: String,
-    val createdAt: LocalDateTime
+    val category: Category,
+    val createdAt: LocalDateTime,
+
+    // Fields for spaced repetition algorithm
+    val repetitions: Int? = null,         // Number of successful reviews
+    val easeFactor: Double? = null,       // Ease factor for SM-2 algorithm
+    val lastReviewDate: LocalDate? = null // Date of the last review
 )
