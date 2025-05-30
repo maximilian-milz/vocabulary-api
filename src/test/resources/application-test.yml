@@ -1,0 +1,21 @@
+# Test database configuration
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/vocabulary_db
+    username: vocabulary_user
+    password: vocabulary_password
+    driver-class-name: org.postgresql.Driver
+
+  # JPA/Hibernate configuration for tests
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: false
+    show-sql: false
+
+  # Flyway configuration for tests
+  flyway:
+    enabled: false
