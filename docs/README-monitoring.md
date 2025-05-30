@@ -115,24 +115,21 @@ To test these monitoring and observability features:
 
 1. Start the application with Docker Compose:
    ```
-   ./gradlew dockerComposeUp
+   ./gradlew bootRun -Plocal
    ```
 
-2. Start the application:
-   ```
-   ./gradlew bootRun
-   ```
+   This command will start both the Docker containers and the application.
 
-3. Access the following endpoints:
+2. Access the following endpoints:
    - Actuator endpoints: http://localhost:8080/actuator
    - Health check: http://localhost:8080/actuator/health
    - Metrics: http://localhost:8080/actuator/metrics
    - Prometheus metrics: http://localhost:8080/actuator/prometheus
    - Zipkin UI: http://localhost:9411
 
-4. Make some API requests to generate traces and metrics.
+3. Make some API requests to generate traces and metrics.
 
-5. Check the logs in the `logs/application.log` file.
+4. Check the logs in the `logs/application.log` file.
 
 ## Additional Notes
 

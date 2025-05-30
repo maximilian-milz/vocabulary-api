@@ -1,6 +1,6 @@
 -- Create a vocabulary_entries table
 CREATE TABLE vocabulary_entries (
-    id SERIAL PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     word_pt VARCHAR(255) NOT NULL,
     word_de VARCHAR(255) NOT NULL,
     example TEXT NOT NULL,

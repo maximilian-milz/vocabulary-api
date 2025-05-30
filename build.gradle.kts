@@ -78,7 +78,7 @@ tasks.register<Exec>("dockerComposeUp") {
         project.hasProperty("local")
     }
 
-    commandLine("docker-compose", "up", "-d")
+    commandLine("docker", "compose", "up", "-d")
 
     // Wait for the database to be ready
     doLast {
@@ -89,7 +89,7 @@ tasks.register<Exec>("dockerComposeUp") {
 
         while (!ready && attempts < maxAttempts) {
             try {
-                val process = ProcessBuilder("docker-compose", "exec", "postgres", "pg_isready", "-U", "vocabulary_user", "-d", "vocabulary_db")
+                val process = ProcessBuilder("docker", "compose", "exec", "postgres", "pg_isready", "-U", "vocabulary_user", "-d", "vocabulary_db")
                     .redirectErrorStream(true)
                     .start()
 
@@ -125,7 +125,7 @@ tasks.register<Exec>("dockerComposeDown") {
         project.hasProperty("local")
     }
 
-    commandLine("docker-compose", "down")
+    commandLine("docker", "compose", "down")
 
     doLast {
         println("Docker containers stopped")
