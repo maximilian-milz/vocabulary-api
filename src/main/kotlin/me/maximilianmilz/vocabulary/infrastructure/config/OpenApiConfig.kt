@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 /**
- * Configuration for OpenAPI/Swagger documentation using Kotlin DSL style.
+ * Configuration for OpenAPI/Swagger documentation using Kotlin's apply functions.
  */
 @Configuration
 class OpenApiConfig {
@@ -32,7 +32,7 @@ class OpenApiConfig {
         contact = Contact().apply {
             name = "Maximilian Milz"
             url = "https://github.com/maximilianmilz"
-            email = "contact@maximilianmilz.me"
+            email = "info@maximilian-milz.me"
         }
         license = License().apply {
             name = "MIT License"
