@@ -31,7 +31,7 @@ class OpenApiConfig {
         version = "v1.0.0"
         contact = Contact().apply {
             name = "Maximilian Milz"
-            url = "https://github.com/maximilianmilz"
+            url = "https://maximilian-milz.me"
             email = "info@maximilian-milz.me"
         }
         license = License().apply {

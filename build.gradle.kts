@@ -52,6 +52,9 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
+    // Mockk for Kotlin mocking
+    testImplementation("io.mockk:mockk:1.13.10")
+
     // Testcontainers
     testImplementation("org.testcontainers:testcontainers:1.21.0")
     testImplementation("org.testcontainers:junit-jupiter:1.21.0")

@@ -259,7 +259,7 @@ class VocabularyEntryControllerTest {
     fun `recordReviewResult should update and return entry when it exists`() {
         // Given
         val id = 1L
-        val reviewResultDto = ReviewResultDto(qualityRating = 4)
+        val reviewResultDto = ReviewResultDto(quality = 4)
 
         val updatedEntry = testEntry.copy(
             repetitions = 1,
@@ -295,7 +295,7 @@ class VocabularyEntryControllerTest {
     fun `recordReviewResult should return 404 when entry does not exist`() {
         // Given
         val id = 999L
-        val reviewResultDto = ReviewResultDto(qualityRating = 4)
+        val reviewResultDto = ReviewResultDto(quality = 4)
 
         `when`(repository.findById(id)).thenReturn(null)
 

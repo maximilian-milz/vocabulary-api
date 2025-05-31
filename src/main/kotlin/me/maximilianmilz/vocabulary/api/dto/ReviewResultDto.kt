@@ -11,5 +11,7 @@ data class ReviewResultDto(
     @field:NotNull(message = "Quality rating is required")
     @field:Min(value = 0, message = "Quality rating must be between 0 and 5")
     @field:Max(value = 5, message = "Quality rating must be between 0 and 5")
-    val qualityRating: Int
+    val quality: Int,
+
+    val notes: String? = null
 )

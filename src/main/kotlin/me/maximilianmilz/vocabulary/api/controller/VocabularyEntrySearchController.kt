@@ -59,8 +59,11 @@ class VocabularyEntrySearchController(
     }
 
     @GetMapping("/due")
-    fun getEntriesDueForReview(): ResponseEntity<List<VocabularyEntryResponseDto>> {
+    fun getEntriesDueForReview(
+        @RequestParam(required = false) limit: Int?
+    ): ResponseEntity<List<VocabularyEntryResponseDto>> {
         val entries = repository.findByNextReviewBefore(LocalDate.now())
-        return ResponseEntity.ok(mapper.toResponseDtoList(entries))
+        val limitedEntries = limit?.let { entries.take(it) } ?: entries
+        return ResponseEntity.ok(mapper.toResponseDtoList(limitedEntries))
     }
 }

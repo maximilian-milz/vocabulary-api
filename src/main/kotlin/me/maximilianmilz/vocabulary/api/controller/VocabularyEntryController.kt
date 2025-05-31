@@ -85,7 +85,7 @@ class VocabularyEntryController(
             ?: throw ResourceNotFoundException("Vocabulary entry not found with id: $id")
 
         // Process the review result using the spaced repetition service
-        val updatedEntry = spacedRepetitionService.processReviewResult(entry, reviewResultDto.qualityRating)
+        val updatedEntry = spacedRepetitionService.processReviewResult(entry, reviewResultDto.quality)
 
         // Save the updated entry
         val savedEntry = repository.save(updatedEntry)
